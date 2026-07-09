@@ -176,9 +176,11 @@
     }
 
     function drawPipe(p) {
-      ctx.drawImage(pipeImg, p.x, 0, PIPE_WIDTH, p.top);
-      const btmH = canvas.height - GROUND_HEIGHT - p.bottom;
-      ctx.drawImage(pipeImg, p.x, p.bottom, PIPE_WIDTH, btmH);
+      // Tile pipe image vertically so it fills any gap height cleanly
+      const pattern = ctx.createPattern(pipeImg, 'repeat-y');
+      ctx.fillStyle = pattern;
+      ctx.fillRect(p.x, 0, PIPE_WIDTH, p.top);
+      ctx.fillRect(p.x, p.bottom, PIPE_WIDTH, canvas.height - GROUND_HEIGHT - p.bottom);
     }
 
     function drawBg() {
