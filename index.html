@@ -57,8 +57,8 @@
     const scoreEl = document.getElementById('score');
 
     // --- Tunable physics (feel free to tweak) ---
-    const GRAVITY       = 0.2;     // how fast the bird falls
-    const FLAP_STRENGTH = -6.5;    // upward kick per flap
+    const GRAVITY       = 0.4;     // how fast the bird falls
+    const FLAP_STRENGTH = -6;      // upward kick per flap
     const PIPE_WIDTH    = 60;
     const PIPE_GAP      = 150;
     const PIPE_SPEED    = 2.0;
@@ -252,6 +252,9 @@
     loadTime = Date.now();
     reset();
     requestAnimationFrame(loop);
+
+    // Test hook (safe to leave in — just exposes read-only state)
+    window.__game = { get bird() { return bird; }, get pipes() { return pipes; }, get score() { return score; }, get gameOver() { return gameOver; }, get gameStarted() { return gameStarted; } };
   </script>
 </body>
 </html>
