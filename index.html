@@ -59,25 +59,12 @@
       color: #fff;
       font-size: 28px;
     }
-    .instructions {
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.7);
-      font-size: 13px;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      z-index: 10;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-      white-space: nowrap;
-    }
   </style>
 </head>
 <body>
   <div class="game-wrapper">
     <div class="score-display">Score: <span id="score">0</span></div>
     <canvas id="game" width="400" height="600"></canvas>
-    <div class="instructions">Press <b>Space</b>, <b>↑</b>, or <b>Click</b> to flap</div>
   </div>
 
   <script>
