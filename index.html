@@ -186,16 +186,22 @@
     function drawPipe(p) {
       const roof = roofImgs[p.roofIdx];
       const floor = floorImgs[p.floorIdx];
+      const playArea = canvas.height - GROUND_HEIGHT;
+      ctx.fillStyle = '#2d8a4e';  // pipe fill color for gaps
 
       // Top pipe: draw roof image, cap at bottom (gap edge)
       const rScale = PIPE_WIDTH / roof.width;
       const rH = roof.height * rScale;
-      ctx.drawImage(roof, p.x, p.top - rH, PIPE_WIDTH, rH);
+      const roofY = p.top - rH;
+      if (roofY > 0) ctx.fillRect(p.x, 0, PIPE_WIDTH, roofY);  // fill gap above image
+      ctx.drawImage(roof, p.x, roofY, PIPE_WIDTH, rH);
 
       // Bottom pipe: draw floor image, cap at top (gap edge)
       const fScale = PIPE_WIDTH / floor.width;
       const fH = floor.height * fScale;
       ctx.drawImage(floor, p.x, p.bottom, PIPE_WIDTH, fH);
+      const floorEnd = p.bottom + fH;
+      if (floorEnd < playArea) ctx.fillRect(p.x, floorEnd, PIPE_WIDTH, playArea - floorEnd);  // fill gap below
     }
 
     function drawBg() {
