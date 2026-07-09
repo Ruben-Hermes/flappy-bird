@@ -59,8 +59,14 @@
     // --- Images ---
     const bgImg = new Image();
     bgImg.src = 'background.png';
-    const pipeImg = new Image();
-    pipeImg.src = 'pipe.png';
+
+    const roofImgs = [new Image(), new Image()];
+    roofImgs[0].src = 'roof1.png';
+    roofImgs[1].src = 'roof2.png';
+
+    const floorImgs = [new Image(), new Image()];
+    floorImgs[0].src = 'floor1.png';
+    floorImgs[1].src = 'floor2.png';
 
     // --- Tunable physics ---
     const GRAVITY       = 0.4;     // standard gravity
@@ -107,8 +113,9 @@
       const headroom = 50;
       const maxTop = canvas.height - GROUND_HEIGHT - PIPE_GAP - headroom;
       const top = Math.floor(Math.random() * (maxTop - headroom + 1)) + headroom;
-      const design = Math.floor(Math.random() * 4);  // pick one of 4 pipe designs
-      pipes.push({ x: canvas.width, top, bottom: top + PIPE_GAP, scored: false, design });
+      const roofIdx = Math.floor(Math.random() * 2);   // 0 or 1
+      const floorIdx = Math.floor(Math.random() * 2);  // 0 or 1
+      pipes.push({ x: canvas.width, top, bottom: top + PIPE_GAP, scored: false, roofIdx, floorIdx });
     }
 
     function update() {
@@ -177,18 +184,18 @@
     }
 
     function drawPipe(p) {
-      const stripH = pipeImg.height / 4;           // each design is 1/4 of the image
-      const sy = p.design * stripH;                 // source y for this design
-      const playArea = canvas.height - GROUND_HEIGHT;
+      const roof = roofImgs[p.roofIdx];
+      const floor = floorImgs[p.floorIdx];
 
-      // Top pipe: show bottom portion of strip (cap meets the gap)
-      const topSrcH = Math.min(p.top, stripH);
-      ctx.drawImage(pipeImg, 0, sy + stripH - topSrcH, pipeImg.width, topSrcH, p.x, 0, PIPE_WIDTH, p.top);
+      // Top pipe: draw roof image, cap at bottom (gap edge)
+      const rScale = PIPE_WIDTH / roof.width;
+      const rH = roof.height * rScale;
+      ctx.drawImage(roof, p.x, p.top - rH, PIPE_WIDTH, rH);
 
-      // Bottom pipe: show top portion of strip (cap meets the gap)
-      const btmH = playArea - p.bottom;
-      const btmSrcH = Math.min(btmH, stripH);
-      ctx.drawImage(pipeImg, 0, sy, pipeImg.width, btmSrcH, p.x, p.bottom, PIPE_WIDTH, btmH);
+      // Bottom pipe: draw floor image, cap at top (gap edge)
+      const fScale = PIPE_WIDTH / floor.width;
+      const fH = floor.height * fScale;
+      ctx.drawImage(floor, p.x, p.bottom, PIPE_WIDTH, fH);
     }
 
     function drawBg() {
