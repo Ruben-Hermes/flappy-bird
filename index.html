@@ -57,8 +57,8 @@
     const scoreEl = document.getElementById('score');
 
     // --- Tunable physics (feel free to tweak) ---
-    const GRAVITY       = 0.4;     // how fast the bird falls
-    const FLAP_STRENGTH = -6;      // upward kick per flap
+    const GRAVITY       = 0.25;    // how fast the bird falls
+    const FLAP_STRENGTH = -5.5;    // upward kick per flap
     const PIPE_WIDTH    = 60;
     const PIPE_GAP      = 150;
     const PIPE_SPEED    = 2.0;
@@ -237,7 +237,7 @@
       // Guard: ignore clicks within 400ms of page load (e.g. double-click opening file)
       if (Date.now() - loadTime < 400) return;
 
-      if (gameOver) { reset(); gameStarted = true; return; }
+      if (gameOver) { reset(); gameStarted = true; }
       if (!gameStarted) { gameStarted = true; spawnPipe(); }
       bird.vy = FLAP_STRENGTH;
     }
