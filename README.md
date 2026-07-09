@@ -17,13 +17,7 @@ Open `index.html` in any browser — no build step, no dependencies.
 ```bash
 git clone https://github.com/Ruben-Hermes/flappy-bird.git
 cd flappy-bird
-open index.html
-```
-
-Or serve with any static server:
-
-```bash
-python3 -m http.server 8000
+# Then double-click index.html or open it in your browser
 ```
 
 ## License
