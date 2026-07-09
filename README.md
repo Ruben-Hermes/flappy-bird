@@ -20,6 +20,12 @@ cd flappy-bird
 # Then double-click index.html or open it in your browser
 ```
 
+| OS | Terminal command |
+|----|-----------------|
+| Windows | `start index.html` |
+| macOS | `open index.html` |
+| Linux | `xdg-open index.html` |
+
 ## License
 
 MIT
