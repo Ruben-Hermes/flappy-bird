@@ -144,10 +144,10 @@
     // --- Drawing ---
     function drawGround() {
       const y = canvas.height - GROUND_HEIGHT;
-      ctx.fillStyle = '#2d8a4e';
+      ctx.fillStyle = '#1a1a1a';
       ctx.fillRect(0, y, canvas.width, GROUND_HEIGHT);
-      ctx.fillStyle = '#3cb861';
-      ctx.fillRect(0, y, canvas.width, 12);
+      ctx.fillStyle = '#333';
+      ctx.fillRect(0, y, canvas.width, 4);
     }
 
     function drawBird() {
@@ -187,7 +187,7 @@
       const roof = roofImgs[p.roofIdx];
       const floor = floorImgs[p.floorIdx];
       const playArea = canvas.height - GROUND_HEIGHT;
-      ctx.fillStyle = '#2d8a4e';  // pipe fill color for gaps
+      ctx.fillStyle = '#1a1a1a';  // matte black fill for gaps
 
       // Top pipe: draw roof image, cap at bottom (gap edge)
       const rScale = PIPE_WIDTH / roof.width;
