@@ -169,32 +169,49 @@
     function drawBird() {
       const { x, y, radius: r } = bird;
       const angle = Math.min(Math.max(bird.vy * 0.12, -0.6), 0.9);
+      const s = r / 16;  // scale factor (original radius was 16)
 
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle);
 
-      // Body
-      ctx.fillStyle = '#ffd700';
-      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#e6b800'; ctx.lineWidth = 2; ctx.stroke();
+      // Red cap
+      ctx.fillStyle = '#e52521';
+      ctx.beginPath(); ctx.arc(0, -8*s, 10*s, Math.PI, 0); ctx.fill();
 
-      // Wing
-      ctx.fillStyle = '#ffa500';
-      ctx.beginPath(); ctx.ellipse(-7, 4, 10, 6, 0.3, 0, Math.PI * 2); ctx.fill();
-      ctx.strokeStyle = '#e68a00'; ctx.lineWidth = 1.5; ctx.stroke();
+      // Face
+      ctx.fillStyle = '#fbbf90';
+      ctx.beginPath(); ctx.arc(0, 0, 9*s, 0, Math.PI * 2); ctx.fill();
 
-      // Eye
+      // Eyes
       ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.arc(7, -4, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-3*s, -3*s, 3*s, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(3*s, -3*s, 3*s, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = '#000';
-      ctx.beginPath(); ctx.arc(9, -4, 3, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#fff';
-      ctx.beginPath(); ctx.arc(10, -5, 1.2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-2.5*s, -2.5*s, 1.5*s, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(3.5*s, -2.5*s, 1.5*s, 0, Math.PI * 2); ctx.fill();
 
-      // Beak
-      ctx.fillStyle = '#ff4444';
-      ctx.beginPath(); ctx.moveTo(14, -2); ctx.lineTo(24, 0); ctx.lineTo(14, 4); ctx.closePath(); ctx.fill();
+      // Mustache
+      ctx.fillStyle = '#6b3304';
+      ctx.beginPath(); ctx.ellipse(-3*s, 2*s, 4*s, 2*s, 0, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(3*s, 2*s, 4*s, 2*s, 0, 0, Math.PI * 2); ctx.fill();
+
+      // Nose
+      ctx.fillStyle = '#fbbf90';
+      ctx.beginPath(); ctx.arc(0, 0, 2.5*s, 0, Math.PI * 2); ctx.fill();
+
+      // Body (blue overalls)
+      ctx.fillStyle = '#1a55d4';
+      ctx.fillRect(-7*s, 8*s, 14*s, 10*s);
+
+      // Red shirt
+      ctx.fillStyle = '#e52521';
+      ctx.fillRect(-6*s, 4*s, 12*s, 5*s);
+
+      // Overall straps
+      ctx.fillStyle = '#ffd700';
+      ctx.fillRect(-5*s, 4*s, 2.5*s, 6*s);
+      ctx.fillRect(2.5*s, 4*s, 2.5*s, 6*s);
 
       ctx.restore();
     }
