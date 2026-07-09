@@ -107,7 +107,8 @@
       const headroom = 50;
       const maxTop = canvas.height - GROUND_HEIGHT - PIPE_GAP - headroom;
       const top = Math.floor(Math.random() * (maxTop - headroom + 1)) + headroom;
-      pipes.push({ x: canvas.width, top, bottom: top + PIPE_GAP, scored: false });
+      const design = Math.floor(Math.random() * 4);  // pick one of 4 pipe designs
+      pipes.push({ x: canvas.width, top, bottom: top + PIPE_GAP, scored: false, design });
     }
 
     function update() {
@@ -176,11 +177,18 @@
     }
 
     function drawPipe(p) {
-      // Tile pipe image vertically so it fills any gap height cleanly
-      const pattern = ctx.createPattern(pipeImg, 'repeat-y');
-      ctx.fillStyle = pattern;
-      ctx.fillRect(p.x, 0, PIPE_WIDTH, p.top);
-      ctx.fillRect(p.x, p.bottom, PIPE_WIDTH, canvas.height - GROUND_HEIGHT - p.bottom);
+      const stripH = pipeImg.height / 4;           // each design is 1/4 of the image
+      const sy = p.design * stripH;                 // source y for this design
+      const playArea = canvas.height - GROUND_HEIGHT;
+
+      // Top pipe: show bottom portion of strip (cap meets the gap)
+      const topSrcH = Math.min(p.top, stripH);
+      ctx.drawImage(pipeImg, 0, sy + stripH - topSrcH, pipeImg.width, topSrcH, p.x, 0, PIPE_WIDTH, p.top);
+
+      // Bottom pipe: show top portion of strip (cap meets the gap)
+      const btmH = playArea - p.bottom;
+      const btmSrcH = Math.min(btmH, stripH);
+      ctx.drawImage(pipeImg, 0, sy, pipeImg.width, btmSrcH, p.x, p.bottom, PIPE_WIDTH, btmH);
     }
 
     function drawBg() {
