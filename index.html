@@ -56,6 +56,12 @@
     const ctx = canvas.getContext('2d');
     const scoreEl = document.getElementById('score');
 
+    // --- Images ---
+    const bgImg = new Image();
+    bgImg.src = 'background.png';
+    const pipeImg = new Image();
+    pipeImg.src = 'pipe.png';
+
     // --- Tunable physics ---
     const GRAVITY       = 0.4;     // standard gravity
     const FLAP_STRENGTH = -6.3;    // +15% higher jumps
@@ -134,9 +140,6 @@
       ctx.fillRect(0, y, canvas.width, GROUND_HEIGHT);
       ctx.fillStyle = '#3cb861';
       ctx.fillRect(0, y, canvas.width, 12);
-      ctx.strokeStyle = '#1e6a38';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(0, y, canvas.width, 0);
     }
 
     function drawBird() {
@@ -173,26 +176,13 @@
     }
 
     function drawPipe(p) {
-      const grad = ctx.createLinearGradient(p.x, 0, p.x + PIPE_WIDTH, 0);
-      grad.addColorStop(0, '#2ecc71');
-      grad.addColorStop(0.5, '#27ae60');
-      grad.addColorStop(1, '#1e8449');
-
-      const capH = 24, capW = 8;
-      // Top pipe
-      ctx.fillStyle = grad;
-      ctx.fillRect(p.x, 0, PIPE_WIDTH, p.top);
-      ctx.fillStyle = '#1abc9c';
-      ctx.fillRect(p.x - capW / 2, p.top - capH, PIPE_WIDTH + capW, capH);
-      // Bottom pipe
-      ctx.fillStyle = grad;
-      ctx.fillRect(p.x, p.bottom, PIPE_WIDTH, canvas.height - GROUND_HEIGHT - p.bottom);
-      ctx.fillStyle = '#1abc9c';
-      ctx.fillRect(p.x - capW / 2, p.bottom, PIPE_WIDTH + capW, capH);
+      ctx.drawImage(pipeImg, p.x, 0, PIPE_WIDTH, p.top);
+      const btmH = canvas.height - GROUND_HEIGHT - p.bottom;
+      ctx.drawImage(pipeImg, p.x, p.bottom, PIPE_WIDTH, btmH);
     }
 
     function drawBg() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
       for (const p of pipes) drawPipe(p);
       drawGround();
       drawBird();
