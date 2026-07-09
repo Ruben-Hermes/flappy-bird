@@ -22,8 +22,6 @@
     }
     .game-wrapper {
       position: relative;
-      max-width: 400px;
-      max-height: 600px;
       width: 100%;
       height: 100%;
     }
@@ -35,8 +33,11 @@
       cursor: pointer;
       background: #70c5ce;
     }
-    /* Desktop: rounded corners when screen is large enough */
-    @media (min-width: 440px) and (min-height: 640px) {
+    @media (min-width: 440px) {
+      .game-wrapper {
+        max-width: 400px;
+        max-height: 600px;
+      }
       canvas {
         border-radius: 12px;
       }
